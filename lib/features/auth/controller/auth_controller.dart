@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:twitterclone/features/auth/view/login_view.dart';
+import 'package:twitterclone/features/home/view/home.dart';
+import 'package:appwrite/models.dart' as model;
 import '../../../api/auth_api.dart';
 import '../../../core/core.dart';
 
 final authControllerProvider = StateNotifierProvider<AuthController, bool>((ref) {
   return AuthController(authApi: ref.watch(authProvider));
+});
+
+final currentUserProvider = FutureProvider((ref) async {
+  final authConttroller = ref.watch(authControllerProvider.notifier);
+  return authConttroller.ccurrentUser();
 });
 
 class AuthController extends StateNotifier<bool> {
@@ -14,6 +22,7 @@ class AuthController extends StateNotifier<bool> {
   super(false);
 
   //state = isLoading
+  Future<model.User?> ccurrentUser () => _authApi.currentUserAccount();
   
   void signUp({
     required String email,
@@ -26,7 +35,11 @@ class AuthController extends StateNotifier<bool> {
 
     res.fold(
       (l) => showSnackBar(context, l.message), 
-      (r) => print(r.email)
+      (r) {
+        print(r.email);
+        showSnackBar(context, 'Account creatted: Please login');
+        Navigator.push(context, LoginView.route());
+      } 
     );
   }
 
@@ -41,7 +54,11 @@ class AuthController extends StateNotifier<bool> {
 
     res.fold(
       (l) => showSnackBar(context, l.message), 
-      (r) => print(r.userId)
+      (r) {
+        print(r.userId);
+        showSnackBar(context, 'Login was successful');
+        Navigator.push(context, HomeView.route());
+      } 
     );
   }
 }
