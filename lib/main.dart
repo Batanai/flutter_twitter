@@ -23,7 +23,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Twitter Clone',
       theme: AppTheme.theme,
       home: ref.watch(currentUserProvider).when(data: (user) {
         if(user != null) {

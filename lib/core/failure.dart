@@ -3,7 +3,4 @@ class Failure {
   final StackTrace stackTrace;
 
   const Failure(this.message, this.stackTrace);
-
-  
-
 }
