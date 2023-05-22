@@ -32,6 +32,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need your permission to access the camera for you to upload an instant photo for your tweet</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need your permission to access the microphone to capture audio for your video or audio uploads</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need your permission to access the photo library to upload images and videos from your device</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

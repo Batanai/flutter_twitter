@@ -4,7 +4,6 @@ import 'package:twitterclone/common/common.dart';
 import 'package:twitterclone/features/auth/controller/auth_controller.dart';
 import 'package:twitterclone/features/auth/view/signup_view.dart';
 import 'package:twitterclone/features/home/view/home.dart';
-import '../features/auth/view/login_view.dart';
 import '../theme/theme.dart';
 
 void main() {
@@ -18,21 +17,22 @@ void main() {
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Twitter Clone',
       theme: AppTheme.theme,
-      home: ref.watch(currentUserProvider).when(data: (user) {
+      home: ref.watch(currentUserAccountProvider).when(data: (user) {
         if(user != null) {
           return const HomeView();
         } 
         return const SignUpView();
-      }, error: (error, stackTrace) {
-         ErrorPage(error: error.toString());
-      }, loading: () => const LoadingPage()),
+      }, error: (error, st) => ErrorPage(
+              error: error.toString(),
+            ),
+            loading: () => const LoadingPage(),
+          ),
     );
   }
 }
